@@ -1,26 +1,21 @@
 package pers.yuejiang.test.responsedetailoforderitem;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.List;
+
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+import net.sf.json.util.JSONTokener;
 
 public class FileObject {
-	public static void main(String[] args) {
-		try {
-			FileInputStream fileInputStream = new FileInputStream("responseDetailsOfSalesorderItem.json");
-		    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-		    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-		    String string; //每次读取一行，当改行为空时结束
-		    
-		    
-		    while((string = bufferedReader.readLine()) != null){
-		    
-		    	System.out.println("read:" + string);
-		    }
-		    bufferedReader.close();
-		    }
-		catch(IOException e) {
-			System.out.println(e);
-			}
-		}
+	public static void main(String[] args) throws JSONException, IOException {
+		//读取文件
+		String json = JsonUtils.readFile("D:\\responseDetailsOfSalesorderItem.json");
+		JSONTokener jsonTokener = new JSONTokener(json);
+		JSONObject jsonObject = (JSONObject) jsonTokener.nextValue();
+		
+		System.out.println("a.提取出SD_DOC=0000000151, PARTN_ROLE=AG的ORDER_PARTNERS_OUT子节点");
+		List<JSONObject> resultObj = JsonUtils.getJsonObjectByQuery(jsonObject, "ORDER_PARTNERS_OUT","SD_DOC=0000000151,PARTN_ROLE=AG");
+
 	}
+}
