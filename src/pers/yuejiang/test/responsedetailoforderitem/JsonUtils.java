@@ -44,24 +44,24 @@ public class JsonUtils {
 	/**
 	 * 条件获取jsonObject	 
 	 */
-	public static List<JSONObject> getJsonObjectByQuery(JSONObject jsonObject,String key,String queryString){
+	public static List<JSONObject> getJsonObjectByQuery(JSONObject jsonObject,String key,String inqueryString){
 		List<JSONObject> resultObj = new ArrayList<JSONObject>();
-		if(queryString==null){
+		if(inqueryString==null){
 			return resultObj;
 		}
-		//获取指定第一级key的JSON数组
+		//获取指定key的JSON数组
 		JSONArray jsonArray = jsonObject.getJSONArray(key);
 		//分割查询条件
-		String[] queryArray = queryString.split(",");
+		String[] inqueryArray = inqueryString.split(",");
 		int len = jsonArray.size();
 		for (int i = 0; i < len; i++) {
 			JSONObject subObj = jsonArray.getJSONObject(i);
 			boolean resultBoolean = true;
-			//遍历查询条件，条件联合查询
-			if(queryArray.length!=0){
-				for (String queryS : queryArray) {
-					String name = queryS.split("=")[0];
-					String value = queryS.split("=")[1];
+			//遍历查询条件，多重条件查询
+			if(inqueryArray.length!=0){
+				for (String inqueryS : inqueryArray) {
+					String name = inqueryS.split("=")[0];
+					String value = inqueryS.split("=")[1];
 					String item = subObj.getString(name);
 					resultBoolean = resultBoolean && item.equals(value);
 				}
