@@ -17,18 +17,6 @@ import net.sf.json.JSONObject;
 public class JsonUtils {
 
 	/**
-	 * 输出文件
-	 * @param path 输出路径
-	 * @param data 数据
-	 * @throws IOException
-	 */
-	public static void writeFile(String path,String data) throws IOException{
-		Writer write = new FileWriter(path);  
-	    write.write(data);  
-	    write.flush();  
-	    write.close(); 
-	}
-	/**
 	 * 读取文件
 	 * @param path 路径
 	 * @return
@@ -49,6 +37,19 @@ public class JsonUtils {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	/**
+	 * 输出文件
+	 * @param path 输出路径
+	 * @param data 数据
+	 * @throws IOException
+	 */
+	public static void writeFile(String path,String data) throws IOException{
+		Writer write = new FileWriter(path);  
+	    write.write(data);  
+	    write.flush();  
+	    write.close(); 
 	}
 	
 	/**
@@ -117,8 +118,8 @@ public class JsonUtils {
 	/**
 	 * 条件获取jsonObject
 	 * @param mainObj 要查询的json对象
-	 * @param key 一级key
-	 * @param queryString 条件（格式为：aaaa=123,bbb=321）
+	 * @param tagetKeyName 目标查询key
+	 * @param queryString 
 	 * @return
 	 */
 	public static List<JSONObject> getJsonObjectByQuery(JSONObject mainObj,String tagetKeyName,String queryString){
