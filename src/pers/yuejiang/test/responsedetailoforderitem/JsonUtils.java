@@ -59,7 +59,7 @@ public class JsonUtils {
 	 * @return
 	 * @Exception JSONException
 	 */
-	@SuppressWarnings("unchecked")
+
 	public static int getJSONObjDstNum(JSONObject obj,String queryKey,String queryValue) throws JSONException {
 		int count = 0;
 		Iterator<String> iterator = obj.keys();
