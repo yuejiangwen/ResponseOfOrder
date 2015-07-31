@@ -83,6 +83,16 @@ public class JsonUtils {
 		}
 		return count;
 	}
+	
+	public static int getJSONArrayDstNum(JSONArray array,String queryKeyName,String queryKeyValue) throws JSONException {
+		int count = 0;
+		int len = array.size();
+		for (int i = 0; i < len; i++) {
+			Object sub_obj = array.get(i);
+			count += getObjDstNum(sub_obj,queryKeyName,queryKeyValue);
+		}
+		return count;
+	}
 	public static int getObjDstNum(Object obj,String queryKeyName,String queryKeyValue) throws JSONException {
 		try {
 			JSONArray object = (JSONArray) obj;
@@ -102,15 +112,6 @@ public class JsonUtils {
 		} finally {
 		}
 		return 0;
-	}
-	public static int getJSONArrayDstNum(JSONArray array,String queryKeyName,String queryKeyValue) throws JSONException {
-		int count = 0;
-		int len = array.size();
-		for (int i = 0; i < len; i++) {
-			Object sub_obj = array.get(i);
-			count += getObjDstNum(sub_obj,queryKeyName,queryKeyValue);
-		}
-		return count;
 	}
 	
 	/**
