@@ -100,7 +100,6 @@ public class JsonUtils {
 				return getJSONArrayDstNum(object,queryKeyName,queryKeyValue);
 			}
 		} catch (ClassCastException e) {
-		} finally {
 		}
 
 		try {
