@@ -28,8 +28,7 @@ public class JsonUtils {
 		try {
 			bufferedReader = new BufferedReader(new FileReader(file));
 			String tempString = null;
-			// 一次读入一行，直到读入null为文件结束
-			while ((tempString = bufferedReader.readLine()) != null) {
+			while ((tempString = bufferedReader.readLine()) != null) {   // 一次读入一行，直到读入null为文件结束
 				result = result + tempString;
 			}
 			bufferedReader.close();
@@ -50,66 +49,6 @@ public class JsonUtils {
 	    write.write(data);  
 	    write.flush();  
 	    write.close(); 
-	}
-	
-	/**
-	 * 获取查询条件下jsonObject的数量
-	 * @param obj json对象
-	 * @param queryKeyName 查询的key
-	 * @param queryKeyValue 查询的值
-	 * @return
-	 * @Exception JSONException
-	 */
-
-	public static int getJSONObjDstNum(JSONObject jsonObj,String queryKeyName,String queryKeyValue) throws JSONException {
-		int count = 0;
-		Iterator<String> iterator = jsonObj.keys();
-		while (iterator.hasNext()) {
-			String key = iterator.next();
-			if (key.equals(queryKeyName)) {
-				try {
-					
-					if (jsonObj.getString(key).equals(queryKeyValue)) {
-						count++;
-					}
-					continue; 
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} 
-			}
-			//递归（递归存在两种形式，JSONArray和JSONObject）
-			Object sub_obj = jsonObj.get(key);
-			count += getObjDstNum(sub_obj,queryKeyName,queryKeyValue);
-		}
-		return count;
-	}
-	
-	public static int getJSONArrayDstNum(JSONArray array,String queryKeyName,String queryKeyValue) throws JSONException {
-		int count = 0;
-		int len = array.size();
-		for (int i = 0; i < len; i++) {
-			Object sub_obj = array.get(i);
-			count += getObjDstNum(sub_obj,queryKeyName,queryKeyValue);
-		}
-		return count;
-	}
-	public static int getObjDstNum(Object obj,String queryKeyName,String queryKeyValue) throws JSONException {
-		try {
-			JSONArray object = (JSONArray) obj;
-			if (object != null) {
-				return getJSONArrayDstNum(object,queryKeyName,queryKeyValue);
-			}
-		} catch (ClassCastException e) {
-		}
-
-		try {
-			JSONObject object = (JSONObject) obj;
-			if (object != null) {
-				return getJSONObjDstNum(object,queryKeyName,queryKeyValue);
-			}
-		} catch (ClassCastException e) {
-		} 
-		return 0;
 	}
 	
 	/**
@@ -148,5 +87,66 @@ public class JsonUtils {
 			}
 		}
 		return resultObj;
+	}
+	
+	/**
+	 * 获取查询条件下jsonObject的数量
+	 * @param obj json对象
+	 * @param queryKeyName 查询的key
+	 * @param queryKeyValue 查询的值
+	 * @return
+	 * @Exception JSONException
+	 */
+	//计算JSONObject中出现目标值次数
+	public static int getJSONObjDstNum(JSONObject jsonObj,String queryKeyName,String queryKeyValue) throws JSONException {
+		int count = 0;
+		Iterator<String> iterator = jsonObj.keys();
+		while (iterator.hasNext()) {
+			String key = iterator.next();
+			if (key.equals(queryKeyName)) {
+				try {
+					
+					if (jsonObj.getString(key).equals(queryKeyValue)) {
+						count++;
+					}
+					continue; 
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} 
+			}
+			//递归（递归存在两种形式，JSONArray和JSONObject）
+			Object sub_obj = jsonObj.get(key);
+			count += getObjDstNum(sub_obj,queryKeyName,queryKeyValue);
+		}
+		return count;
+	}
+	//判断对象属于object还是array
+	public static int getObjDstNum(Object obj,String queryKeyName,String queryKeyValue) throws JSONException {
+		try {
+			JSONArray object = (JSONArray) obj;
+			if (object != null) {
+				return getJSONArrayDstNum(object,queryKeyName,queryKeyValue);
+			}
+		} catch (ClassCastException e) {
+		}
+
+		try {
+			JSONObject object = (JSONObject) obj;
+			if (object != null) {
+				return getJSONObjDstNum(object,queryKeyName,queryKeyValue);
+			}
+		} catch (ClassCastException e) {
+		} 
+		return 0;
+	}
+	//计算JSONArray中出现目标值次数
+	public static int getJSONArrayDstNum(JSONArray array,String queryKeyName,String queryKeyValue) throws JSONException {
+		int count = 0;
+		int len = array.size();
+		for (int i = 0; i < len; i++) {
+			Object sub_obj = array.get(i);
+			count += getObjDstNum(sub_obj,queryKeyName,queryKeyValue);
+		}
+		return count;
 	}
 }
