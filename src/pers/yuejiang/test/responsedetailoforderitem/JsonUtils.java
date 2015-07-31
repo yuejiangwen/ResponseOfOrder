@@ -54,21 +54,21 @@ public class JsonUtils {
 	/**
 	 * 获取查询条件下jsonObject的数量
 	 * @param obj json对象
-	 * @param queryKey 查询的key
-	 * @param queryValue 查询的值
+	 * @param queryKeyName 查询的key
+	 * @param queryKeyValue 查询的值
 	 * @return
 	 * @Exception JSONException
 	 */
 
-	public static int getJSONObjDstNum(JSONObject obj,String queryKey,String queryValue) throws JSONException {
+	public static int getJSONObjDstNum(JSONObject obj,String queryKeyName,String queryKeyValue) throws JSONException {
 		int count = 0;
 		Iterator<String> iterator = obj.keys();
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			if (key.equals(queryKey)) {
+			if (key.equals(queryKeyName)) {
 				try {
 					
-					if (obj.getString(key).equals(queryValue)) {
+					if (obj.getString(key).equals(queryKeyValue)) {
 						count++;
 					}
 					continue; 
@@ -79,7 +79,7 @@ public class JsonUtils {
 			}
 			//递归（递归存在两种形式，JSONArray和JSONObject）
 			Object sub_obj = obj.get(key);
-			count += getObjDstNum(sub_obj,queryKey,queryValue);
+			count += getObjDstNum(sub_obj,queryKeyName,queryKeyValue);
 		}
 		return count;
 	}
