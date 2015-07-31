@@ -127,7 +127,7 @@ public class JsonUtils {
 		if(queryString==null){
 			return resultObj;
 		}
-		//获取指定第一级key的JSON数组
+		//获取指定key的JSON数组
 		JSONArray jsonArray = mainObj.getJSONArray(tagetKeyName);
 		//分割查询条件
 		String[] queryArray = queryString.split(",");
@@ -135,7 +135,7 @@ public class JsonUtils {
 		for (int i = 0; i < len; i++) {
 			JSONObject subObj = jsonArray.getJSONObject(i);
 			boolean resultBoolean = true;
-			//遍历查询条件，条件联合查询
+			//遍历查询条件，多重条件查询
 			if(queryArray.length!=0){
 				for (String querySplit : queryArray) {
 					String name = querySplit.split("=")[0];
