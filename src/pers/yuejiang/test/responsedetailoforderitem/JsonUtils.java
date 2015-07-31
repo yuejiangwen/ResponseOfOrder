@@ -61,25 +61,24 @@ public class JsonUtils {
 	 * @Exception JSONException
 	 */
 
-	public static int getJSONObjDstNum(JSONObject obj,String queryKeyName,String queryKeyValue) throws JSONException {
+	public static int getJSONObjDstNum(JSONObject jsonObj,String queryKeyName,String queryKeyValue) throws JSONException {
 		int count = 0;
-		Iterator<String> iterator = obj.keys();
+		Iterator<String> iterator = jsonObj.keys();
 		while (iterator.hasNext()) {
 			String key = iterator.next();
 			if (key.equals(queryKeyName)) {
 				try {
 					
-					if (obj.getString(key).equals(queryKeyValue)) {
+					if (jsonObj.getString(key).equals(queryKeyValue)) {
 						count++;
 					}
 					continue; 
 				} catch (JSONException e) {
 					e.printStackTrace();
-				} finally {
-				}
+				} 
 			}
 			//递归（递归存在两种形式，JSONArray和JSONObject）
-			Object sub_obj = obj.get(key);
+			Object sub_obj = jsonObj.get(key);
 			count += getObjDstNum(sub_obj,queryKeyName,queryKeyValue);
 		}
 		return count;
@@ -110,8 +109,7 @@ public class JsonUtils {
 				return getJSONObjDstNum(object,queryKeyName,queryKeyValue);
 			}
 		} catch (ClassCastException e) {
-		} finally {
-		}
+		} 
 		return 0;
 	}
 	
