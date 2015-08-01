@@ -28,9 +28,11 @@ public class JsonUtils {
 		BufferedReader bufferedReader = null;
 		String result = "";
 		try {
-			bufferedReader = new BufferedReader(new FileReader(readpath)); //取消新建File实例
+			bufferedReader = new BufferedReader(new FileReader(readpath)); 
+			//取消新建File实例
 			String tempString = null;
-			while ((tempString = bufferedReader.readLine()) != null) {     // 一次读入一行，直到读入null为文件结束
+			while ((tempString = bufferedReader.readLine()) != null) {     
+			// 一次读入一行，直到读入null为文件结束
 				result = result + tempString;
 			}
 			bufferedReader.close();
@@ -46,7 +48,8 @@ public class JsonUtils {
 	 * @param data 数据
 	 * @throws IOException
 	 */
-	public static void writeFile(final String writepath, final String data) throws IOException {
+	public static void writeFile(final String writepath, final String data) 
+			throws IOException {
 		Writer write = new FileWriter(writepath);
 	    write.write(data);
 	    write.flush();
@@ -60,7 +63,8 @@ public class JsonUtils {
 	 * @param queryString
 	 * @return resultObj
 	 */
-	public static List<JSONObject> getJsonObjectByQuery(final JSONObject mainObj, final String tagetKeyName, final String queryString) {
+	public static List<JSONObject> getJsonObjectByQuery(
+			final JSONObject mainObj, final String tagetKeyName, final String queryString) {
 		List<JSONObject> resultObj = new ArrayList<JSONObject>();
 		if (queryString == null) {
 			return resultObj;
@@ -101,7 +105,9 @@ public class JsonUtils {
 	 */
 	//计算JSONObject中出现目标值次数
 	@SuppressWarnings("unchecked")
-	public static int getJSONObjDstNum(final JSONObject jsonObj, final String queryKeyName, final String queryKeyValue) throws JSONException {
+	public static int getJSONObjDstNum(final JSONObject jsonObj, 
+			final String queryKeyName, final String queryKeyValue)
+					throws JSONException {
 		int count = 0;
 		Iterator<String> iterator = jsonObj.keys();
 		while (iterator.hasNext()) {
@@ -124,7 +130,8 @@ public class JsonUtils {
 		return count;
 	}
 	//判断对象属于object还是array
-	public static int getObjDstNum(final Object obj,final String queryKeyName, final String queryKeyValue) {
+	public static int getObjDstNum(final Object obj, final String queryKeyName,  
+			final String queryKeyValue) {
 		try {
 			JSONArray object = (JSONArray) obj;
 			if (object != null) {
@@ -143,7 +150,8 @@ public class JsonUtils {
 		return 0;
 	}
 	//计算JSONArray中出现目标值次数
-	public static int getJSONArrayDstNum(final JSONArray array, final String queryKeyName, final String queryKeyValue) {
+	public static int getJSONArrayDstNum(final JSONArray array, 
+			final String queryKeyName, final String queryKeyValue) {
 		int count = 0;
 		int len = array.size();
 		for (int i = 0; i < len; i++) {
