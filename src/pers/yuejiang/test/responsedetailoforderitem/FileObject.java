@@ -8,7 +8,7 @@ import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 import net.sf.json.util.JSONTokener;
 
-/** 三个功能：JSON节点查询、计数、 修改.*/
+/** 三个功能：JSON节点查询、计数及修改.*/
 public class FileObject {
 		public static void main(final String[] args) throws JSONException, IOException {
 		//读取文件
