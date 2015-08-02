@@ -42,6 +42,13 @@ public String ReadFile(final String readpath) {
  * @param data Êý¾Ý
  * @throws IOException
  */
+public void WriteFile(final String writepath, final String data) 
+		throws IOException {
+	Writer write = new FileWriter(writepath);
+    write.write(data);
+    write.flush();
+    write.close();
+}
 
 
 /**

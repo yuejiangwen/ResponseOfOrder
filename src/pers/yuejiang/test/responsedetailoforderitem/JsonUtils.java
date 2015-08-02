@@ -21,4 +21,6 @@ interface JsonUtils {
 	List<JSONObject> GetJsonObjectByQuery (
 			final JSONObject mainObj, final String tagetKeyName, final String queryString);
 
+	void WriteFile(final String writepath, final String data) throws IOException;
+	
 }
